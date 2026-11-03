@@ -9,7 +9,7 @@ This project focuses on designing, implementing, and optimizing a PostgreSQL dat
 **Database:** PostgreSQL 15 or newer · **Final submission:** Mon 23 Nov 2026
 **Topics used:** Data types & constraints · Keys & relationships · Normalization · Query execution plans · Indexing · Query optimization · VACUUM/ANALYZE · Partitioning & sharding
 
-## Files in this folder
+## Files in this below folder
 
 | Path | What it is |
 |------|------------|
