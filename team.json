@@ -1,0 +1,27 @@
+{
+  "team_number": "104",
+  "group_lead": {
+    "name": "ANSH GUPTA",
+    "enrollment_no": "2501010067",
+    "github": "anshg25067-creator"
+  },
+  "members": [
+    {
+      "name": "ROHIT RAJ",
+      "enrollment_no": "2501010384",
+      "github": "rohit25384"
+    },
+    {
+      "name": "Piyush Jaiswal",
+      "enrollment_no": "2501010637",
+      "github": "piyushj25637"
+    },
+    {
+      "name": "Aditya",
+      "enrollment_no": "2501010032",
+      "github": "Aditya15246"
+    }
+  ],
+  "postgres_version": "17.11",
+  "laptop_used_for_benchmarks": "MacBook Pro M4 Pro"
+}
