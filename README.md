@@ -29,8 +29,8 @@ This project focuses on designing, implementing, and optimizing a PostgreSQL dat
 |------|------|----------------|-----------------|
 | Group Lead |Ansh Gupta | 2501010067|anshg25067-creator |
 | Member 2 | Rohit Raj|2501010384|rohit25384|
-| Member 3 | Piyush Jaiswal|2501010637|piyushj25637|
-| Member 4 |Aditya|2501010032|Aditya15246|
+| Member 3 |Aditya|2501010032|Aditya15246|
+| Member 4 | Piyush Jaiswal|2501010637|piyushj25637|
 
 **Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
 
