@@ -22,10 +22,10 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead |Ansh Gupta | 2501010067|anshg25067-creator |
+| Member 2 | Rohit Raj|2501010384|rohit25384|
+| Member 3 | Piyush Jaiswal|2501010637|piyushj25637|
+| Member 4 |Aditya|2501010032|Aditya15246|
 
 **Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
 
