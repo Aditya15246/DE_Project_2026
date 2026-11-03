@@ -1,5 +1,10 @@
 # WhatsApp Messaging Database: DBMS Project
 
+## Project Overview
+
+This project focuses on designing, implementing, and optimizing a PostgreSQL database for a WhatsApp-like messaging system. It involves reconstructing the database schema from CSV datasets, enforcing data integrity through constraints, analyzing query execution plans, optimizing SQL queries, and evaluating database scalability under increased workloads.
+
+
 **Course:** Database Management Systems · **Year:** B.Tech 2nd year · **Team size:** 4
 **Database:** PostgreSQL 15 or newer · **Final submission:** Mon 23 Nov 2026
 **Topics used:** Data types & constraints · Keys & relationships · Normalization · Query execution plans · Indexing · Query optimization · VACUUM/ANALYZE · Partitioning & sharding
@@ -28,6 +33,17 @@
 | Member 4 |Aditya|2501010032|Aditya15246|
 
 **Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+
+## Team Responsibilities
+
+The team members contribute to the documentation, database setup, and repository management of the WhatsApp Messaging Database project.
+
+- **Ansh Gupta:** Team coordination and overall project management.
+- **Rohit Raj:** Review and maintain team information and responsibilities in the root `README.md`.
+- **Piyush Jaiswal:** Document PostgreSQL environment configuration and setup procedures in `docs/POSTGRES_SETUP.md`.
+- **Aditya:** Document repository setup, Git workflow, and contribution guidelines in `docs/REPOSITORY_SETUP.md`.
+
+Each member is responsible for making a meaningful contribution to their assigned documentation and committing their work to the team's repository.
 
 ---
 
