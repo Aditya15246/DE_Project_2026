@@ -1,0 +1,101 @@
+erDiagram
+    users {
+        BIGINT user_id PK
+        VARCHAR phone_e164 UK
+        VARCHAR display_name
+        TEXT about
+        BOOLEAN is_business
+        DATE joined_on
+        TIMESTAMPTZ last_seen_at
+        VARCHAR status
+    }
+
+    chats {
+        BIGINT chat_id PK
+        VARCHAR chat_type
+        VARCHAR group_name
+        BIGINT created_by FK
+        TIMESTAMPTZ created_at
+    }
+
+    media {
+        BIGINT media_id PK
+        BIGINT uploader_id FK
+        VARCHAR media_type
+        TEXT mime_type
+        BIGINT size_bytes
+        TEXT sha256
+        TIMESTAMPTZ uploaded_at
+    }
+
+    devices {
+        BIGINT device_id PK
+        BIGINT user_id FK
+        VARCHAR device_type
+        TEXT app_version
+        TIMESTAMPTZ registered_at
+        TIMESTAMPTZ last_active_at
+    }
+
+    chat_members {
+        BIGINT chat_id PK, FK
+        BIGINT user_id PK, FK
+        VARCHAR role
+        TIMESTAMPTZ joined_at
+        TIMESTAMPTZ left_at
+        BOOLEAN is_muted
+    }
+
+    blocked_users {
+        BIGINT blocker_id PK, FK
+        BIGINT blocked_id PK, FK
+        TIMESTAMPTZ blocked_at
+    }
+
+    messages {
+        BIGINT message_id PK
+        BIGINT chat_id FK
+        BIGINT sender_id FK
+        TIMESTAMPTZ sent_at
+        VARCHAR message_type
+        TEXT body
+        BIGINT media_id FK
+        BIGINT reply_to_message_id FK
+        BOOLEAN is_forwarded
+        BOOLEAN is_deleted
+        TIMESTAMPTZ edited_at
+    }
+
+    message_receipts {
+        BIGINT message_id PK, FK
+        BIGINT user_id PK, FK
+        TIMESTAMPTZ delivered_at
+        TIMESTAMPTZ read_at
+    }
+
+    calls {
+        BIGINT call_id PK
+        BIGINT chat_id FK
+        BIGINT caller_id FK
+        VARCHAR call_type
+        TIMESTAMPTZ started_at
+        TIMESTAMPTZ answered_at
+        TIMESTAMPTZ ended_at
+        VARCHAR status
+    }
+
+    users ||--o{ chats : creates
+    users ||--o{ devices : owns
+    users ||--o{ chat_members : joins
+    chats ||--o{ chat_members : contains
+    users ||--o{ blocked_users : blocker_role
+    users ||--o{ blocked_users : blocked_role
+    users ||--o{ media : uploads
+    users ||--o{ messages : sends
+    chats ||--o{ messages : contains
+    media o|--o{ messages : attached_to
+    messages o|--o{ messages : replies_to
+    messages ||--o{ message_receipts : has
+    users ||--o{ message_receipts : receives
+    chats ||--o{ calls : contains
+    users ||--o{ calls : initiates

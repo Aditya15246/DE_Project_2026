@@ -1,0 +1,31 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,29.171,24.108,19.766,43.640,Seq Scan on chat_members | Index Scan using chats_pkey on chats | Seq Scan on messages
+R02,READ,4.242,4.461,3.671,4.594,Seq Scan on messages
+R03,READ,8.300,8.296,7.875,8.728,Seq Scan on message_receipts | Index Scan using messages_pkey on messages
+R04,READ,25.817,25.471,24.058,27.922,Seq Scan on messages | Seq Scan on chat_members
+R05,READ,0.349,0.028,0.027,0.993,Index Scan using users_phone_e164_key on users
+R06,READ,4.180,3.543,3.425,5.571,Seq Scan on chat_members | Index Only Scan using pk_chat_members on chat_members | Index Scan using chats_pkey on chats | Index Scan using users_pkey on users
+R07,READ,0.523,0.128,0.120,1.320,Index Scan using pk_chat_members on chat_members | Index Scan using users_pkey on users
+R08,READ,18.767,18.128,16.429,21.745,Seq Scan on messages | Seq Scan on message_receipts
+R09,READ,10.904,10.194,10.192,12.326,Seq Scan on media
+R10,READ,10.336,10.729,9.511,10.769,Seq Scan on messages
+R11,READ,6.858,6.677,6.252,7.646,Seq Scan on chat_members | Seq Scan on calls
+R12,READ,8.412,8.929,7.272,9.035,Seq Scan on messages
+R13,READ,25.126,24.737,21.828,28.813,Seq Scan on messages
+R14,READ,6.738,6.727,6.693,6.793,Seq Scan on messages | Seq Scan on chats
+R15,READ,0.092,0.026,0.022,0.229,Index Only Scan using pk_blocked_users on blocked_users
+R16,READ,0.389,0.057,0.056,1.054,Index Scan using pk_message_receipts on message_receipts | Index Scan using users_pkey on users
+R17,READ,22.375,21.001,18.286,27.839,Seq Scan on message_receipts | Seq Scan on messages
+R18,READ,15.825,15.738,15.319,16.417,Seq Scan on users | Seq Scan on chat_members | Seq Scan on chats
+R19,READ,16016.644,15960.766,15746.260,16342.906,Seq Scan on chats | Seq Scan on messages
+R20,READ,48.435,48.592,46.686,50.026,Seq Scan on messages
+R21,READ,12.766,12.694,12.487,13.118,Seq Scan on messages
+R22,READ,10.256,8.543,8.442,13.784,Index Scan using messages_pkey on messages
+R23,READ,3.854,3.860,3.773,3.929,Seq Scan on devices
+R24,READ,8.102,8.114,8.059,8.133,Seq Scan on media
+R25,READ,0.054,0.054,0.051,0.058,Index Scan using messages_pkey on messages
+W01,WRITE,0.603,0.440,0.414,0.956,(no scan)
+W02,WRITE,11.651,8.113,6.587,20.253,Seq Scan on messages | Index Scan using pk_message_receipts on message_receipts
+W03,WRITE,0.449,0.481,0.286,0.580,Index Scan using messages_pkey on messages
+W04,WRITE,39.268,34.807,26.314,56.683,(no scan)
+W05,WRITE,0.285,0.132,0.129,0.594,Index Scan using pk_chat_members on chat_members
