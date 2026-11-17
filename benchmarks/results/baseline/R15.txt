@@ -1,0 +1,36 @@
+=== R15 run 1 ===
+Result  (cost=4.30..4.31 rows=1 width=1) (actual time=0.214..0.214 rows=1 loops=1)
+  Buffers: shared hit=3 read=2
+  InitPlan 1
+    ->  Index Only Scan using pk_blocked_users on blocked_users  (cost=0.28..4.30 rows=1 width=0) (actual time=0.213..0.213 rows=0 loops=1)
+          Index Cond: ((blocker_id = 3064) AND (blocked_id = 17793))
+          Heap Fetches: 0
+          Buffers: shared hit=3 read=2
+Planning:
+  Buffers: shared hit=70
+Planning Time: 0.176 ms
+Execution Time: 0.229 ms
+=== R15 run 2 ===
+Result  (cost=4.30..4.31 rows=1 width=1) (actual time=0.011..0.011 rows=1 loops=1)
+  Buffers: shared hit=5
+  InitPlan 1
+    ->  Index Only Scan using pk_blocked_users on blocked_users  (cost=0.28..4.30 rows=1 width=0) (actual time=0.010..0.010 rows=0 loops=1)
+          Index Cond: ((blocker_id = 3064) AND (blocked_id = 17793))
+          Heap Fetches: 0
+          Buffers: shared hit=5
+Planning:
+  Buffers: shared hit=70
+Planning Time: 0.168 ms
+Execution Time: 0.026 ms
+=== R15 run 3 ===
+Result  (cost=4.30..4.31 rows=1 width=1) (actual time=0.009..0.009 rows=1 loops=1)
+  Buffers: shared hit=5
+  InitPlan 1
+    ->  Index Only Scan using pk_blocked_users on blocked_users  (cost=0.28..4.30 rows=1 width=0) (actual time=0.008..0.009 rows=0 loops=1)
+          Index Cond: ((blocker_id = 3064) AND (blocked_id = 17793))
+          Heap Fetches: 0
+          Buffers: shared hit=5
+Planning:
+  Buffers: shared hit=70
+Planning Time: 0.143 ms
+Execution Time: 0.022 ms
