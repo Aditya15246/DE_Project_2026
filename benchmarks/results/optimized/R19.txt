@@ -1,0 +1,75 @@
+=== R19 run 1 ===
+Sort  (cost=5202.22..5209.72 rows=3000 width=40) (actual time=14.147..14.206 rows=3000.00 loops=1)
+  Sort Key: (max(m.sent_at)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 272kB
+  Buffers: shared hit=1683
+  ->  Hash Right Join  (cost=4705.00..5028.96 rows=3000 width=40) (actual time=12.155..13.861 rows=3000.00 loops=1)
+        Hash Cond: (m.chat_id = c.chat_id)
+        Buffers: shared hit=1680
+        ->  HashAggregate  (cost=4204.00..4347.18 rows=14318 width=24) (actual time=11.347..12.178 rows=21164.00 loops=1)
+              Group Key: m.chat_id
+              Batches: 1  Memory Usage: 1817kB
+              Buffers: shared hit=1504
+              ->  Seq Scan on messages m  (cost=0.00..2704.00 rows=120000 width=16) (actual time=0.002..2.866 rows=120000.00 loops=1)
+                    Buffers: shared hit=1504
+        ->  Hash  (cost=463.50..463.50 rows=3000 width=24) (actual time=0.803..0.803 rows=3000.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 198kB
+              Buffers: shared hit=176
+              ->  Seq Scan on chats c  (cost=0.00..463.50 rows=3000 width=24) (actual time=0.494..0.651 rows=3000.00 loops=1)
+                    Filter: ((chat_type)::text = 'GROUP'::text)
+                    Rows Removed by Filter: 20000
+                    Buffers: shared hit=176
+Planning:
+  Buffers: shared hit=188
+Planning Time: 0.327 ms
+Execution Time: 14.308 ms
+=== R19 run 2 ===
+Sort  (cost=5202.22..5209.72 rows=3000 width=40) (actual time=13.711..13.774 rows=3000.00 loops=1)
+  Sort Key: (max(m.sent_at)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 272kB
+  Buffers: shared hit=1683
+  ->  Hash Right Join  (cost=4705.00..5028.96 rows=3000 width=40) (actual time=11.737..13.434 rows=3000.00 loops=1)
+        Hash Cond: (m.chat_id = c.chat_id)
+        Buffers: shared hit=1680
+        ->  HashAggregate  (cost=4204.00..4347.18 rows=14318 width=24) (actual time=11.005..11.826 rows=21164.00 loops=1)
+              Group Key: m.chat_id
+              Batches: 1  Memory Usage: 1817kB
+              Buffers: shared hit=1504
+              ->  Seq Scan on messages m  (cost=0.00..2704.00 rows=120000 width=16) (actual time=0.002..2.817 rows=120000.00 loops=1)
+                    Buffers: shared hit=1504
+        ->  Hash  (cost=463.50..463.50 rows=3000 width=24) (actual time=0.718..0.718 rows=3000.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 198kB
+              Buffers: shared hit=176
+              ->  Seq Scan on chats c  (cost=0.00..463.50 rows=3000 width=24) (actual time=0.455..0.587 rows=3000.00 loops=1)
+                    Filter: ((chat_type)::text = 'GROUP'::text)
+                    Rows Removed by Filter: 20000
+                    Buffers: shared hit=176
+Planning:
+  Buffers: shared hit=188
+Planning Time: 0.312 ms
+Execution Time: 13.868 ms
+=== R19 run 3 ===
+Sort  (cost=5202.22..5209.72 rows=3000 width=40) (actual time=14.120..14.169 rows=3000.00 loops=1)
+  Sort Key: (max(m.sent_at)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 272kB
+  Buffers: shared hit=1683
+  ->  Hash Right Join  (cost=4705.00..5028.96 rows=3000 width=40) (actual time=12.088..13.839 rows=3000.00 loops=1)
+        Hash Cond: (m.chat_id = c.chat_id)
+        Buffers: shared hit=1680
+        ->  HashAggregate  (cost=4204.00..4347.18 rows=14318 width=24) (actual time=11.308..12.154 rows=21164.00 loops=1)
+              Group Key: m.chat_id
+              Batches: 1  Memory Usage: 1817kB
+              Buffers: shared hit=1504
+              ->  Seq Scan on messages m  (cost=0.00..2704.00 rows=120000 width=16) (actual time=0.002..2.840 rows=120000.00 loops=1)
+                    Buffers: shared hit=1504
+        ->  Hash  (cost=463.50..463.50 rows=3000 width=24) (actual time=0.774..0.775 rows=3000.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 198kB
+              Buffers: shared hit=176
+              ->  Seq Scan on chats c  (cost=0.00..463.50 rows=3000 width=24) (actual time=0.480..0.613 rows=3000.00 loops=1)
+                    Filter: ((chat_type)::text = 'GROUP'::text)
+                    Rows Removed by Filter: 20000
+                    Buffers: shared hit=176
+Planning:
+  Buffers: shared hit=188
+Planning Time: 0.344 ms
+Execution Time: 14.257 ms

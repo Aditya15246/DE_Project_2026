@@ -1,0 +1,75 @@
+=== W02 run 1 ===
+Update on message_receipts r  (cost=0.72..78.54 rows=0 width=0) (actual time=0.223..0.224 rows=0.00 loops=1)
+  Buffers: shared hit=209
+  ->  Nested Loop  (cost=0.72..78.54 rows=1 width=28) (actual time=0.021..0.100 rows=14.00 loops=1)
+        Buffers: shared hit=74
+        ->  Index Scan using idx_receipts_unread_user_message on message_receipts r  (cost=0.42..28.52 rows=6 width=22) (actual time=0.013..0.039 rows=16.00 loops=1)
+              Index Cond: (user_id = 965)
+              Filter: (read_at IS NULL)
+              Index Searches: 1
+              Buffers: shared hit=26
+        ->  Memoize  (cost=0.30..8.32 rows=1 width=14) (actual time=0.004..0.004 rows=0.88 loops=16)
+              Cache Key: r.message_id
+              Cache Mode: logical
+              Hits: 0  Misses: 16  Evictions: 0  Overflows: 0  Memory Usage: 2kB
+              Buffers: shared hit=48
+              ->  Index Scan using messages_pkey on messages m  (cost=0.29..8.31 rows=1 width=14) (actual time=0.003..0.003 rows=0.88 loops=16)
+                    Index Cond: (message_id = r.message_id)
+                    Filter: (chat_id = 22556)
+                    Rows Removed by Filter: 0
+                    Index Searches: 16
+                    Buffers: shared hit=48
+Planning:
+  Buffers: shared hit=325
+Planning Time: 0.503 ms
+Execution Time: 0.283 ms
+=== W02 run 2 ===
+Update on message_receipts r  (cost=0.72..78.54 rows=0 width=0) (actual time=0.225..0.225 rows=0.00 loops=1)
+  Buffers: shared hit=205
+  ->  Nested Loop  (cost=0.72..78.54 rows=1 width=28) (actual time=0.019..0.112 rows=14.00 loops=1)
+        Buffers: shared hit=70
+        ->  Index Scan using idx_receipts_unread_user_message on message_receipts r  (cost=0.42..28.52 rows=6 width=22) (actual time=0.012..0.051 rows=16.00 loops=1)
+              Index Cond: (user_id = 965)
+              Filter: (read_at IS NULL)
+              Index Searches: 1
+              Buffers: shared hit=22
+        ->  Memoize  (cost=0.30..8.32 rows=1 width=14) (actual time=0.004..0.004 rows=0.88 loops=16)
+              Cache Key: r.message_id
+              Cache Mode: logical
+              Hits: 0  Misses: 16  Evictions: 0  Overflows: 0  Memory Usage: 2kB
+              Buffers: shared hit=48
+              ->  Index Scan using messages_pkey on messages m  (cost=0.29..8.31 rows=1 width=14) (actual time=0.003..0.003 rows=0.88 loops=16)
+                    Index Cond: (message_id = r.message_id)
+                    Filter: (chat_id = 22556)
+                    Rows Removed by Filter: 0
+                    Index Searches: 16
+                    Buffers: shared hit=48
+Planning:
+  Buffers: shared hit=325
+Planning Time: 0.501 ms
+Execution Time: 0.275 ms
+=== W02 run 3 ===
+Update on message_receipts r  (cost=0.72..78.54 rows=0 width=0) (actual time=0.218..0.218 rows=0.00 loops=1)
+  Buffers: shared hit=205
+  ->  Nested Loop  (cost=0.72..78.54 rows=1 width=28) (actual time=0.018..0.111 rows=14.00 loops=1)
+        Buffers: shared hit=70
+        ->  Index Scan using idx_receipts_unread_user_message on message_receipts r  (cost=0.42..28.52 rows=6 width=22) (actual time=0.012..0.051 rows=16.00 loops=1)
+              Index Cond: (user_id = 965)
+              Filter: (read_at IS NULL)
+              Index Searches: 1
+              Buffers: shared hit=22
+        ->  Memoize  (cost=0.30..8.32 rows=1 width=14) (actual time=0.004..0.004 rows=0.88 loops=16)
+              Cache Key: r.message_id
+              Cache Mode: logical
+              Hits: 0  Misses: 16  Evictions: 0  Overflows: 0  Memory Usage: 2kB
+              Buffers: shared hit=48
+              ->  Index Scan using messages_pkey on messages m  (cost=0.29..8.31 rows=1 width=14) (actual time=0.003..0.003 rows=0.88 loops=16)
+                    Index Cond: (message_id = r.message_id)
+                    Filter: (chat_id = 22556)
+                    Rows Removed by Filter: 0
+                    Index Searches: 16
+                    Buffers: shared hit=48
+Planning:
+  Buffers: shared hit=325
+Planning Time: 0.483 ms
+Execution Time: 0.267 ms
