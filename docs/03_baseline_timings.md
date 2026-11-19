@@ -1,4 +1,4 @@
-# CP2 — Baseline Query Timings
+# CP3 — Baseline Query Timings
 
 ## 1. Objective
 
@@ -166,6 +166,61 @@ PostgreSQL performs parallel sequential scans on `messages` and `message_receipt
 
 The large sequential scans on both tables are the main contributors to execution time, despite parallel processing.
 
+### R09 — Top users by media uploaded
+
+Average execution time: **10.904 ms**
+
+PostgreSQL performs a sequential scan on `media`, followed by HashAggregate and Top-N heapsort.
+
+- The scan examines 27,634 media records.
+- HashAggregate groups records by `uploader_id`, producing 17,117 groups.
+- The aggregation calculates the total number of files and total uploaded size per user.
+- Top-N heapsort selects the 20 users with the largest total uploaded size.
+
+The full-table scan and aggregation are the primary performance costs.
+
+### R10 — Daily active senders in June 2026
+
+Average execution time: **10.336 ms**
+
+PostgreSQL performs a sequential scan on `messages`, followed by sorting and GroupAggregate.
+
+- The scan examines 120,000 message records.
+- The date filter retains 6,593 records and removes 113,407.
+- Matching records are grouped by date.
+- The query calculates distinct active senders and total messages for each day.
+- The final result contains 30 daily records.
+
+The sequential scan and aggregation are the main contributors to execution time. The date conversion in the filter is also an optimization consideration.
+
+### R11 — Missed calls received by user 965
+
+Average execution time: **6.858 ms**
+
+PostgreSQL performs sequential scans on `chat_members` and `calls`, followed by a Hash Join and Sort.
+
+- The membership scan examines 104,514 records and removes 104,510 records to find memberships for user 965.
+- The calls scan examines 25,000 records.
+- Filtering retains 6,322 calls before joining.
+- The Hash Join combines calls and memberships using `chat_id`.
+- The final results are ordered by `started_at DESC`.
+
+The sequential scans on both tables are the primary optimization opportunities.
+
+### R12 — Users forwarding multiple messages on the same day
+
+Average execution time: **8.412 ms**
+
+PostgreSQL performs a sequential scan on `messages`, followed by HashAggregate and Sort.
+
+- The scan examines 120,000 message records.
+- The `is_forwarded` filter retains 5,998 records and removes 114,002.
+- HashAggregate groups records by `sender_id` and `sent_at::date`.
+- The HAVING condition removes groups with fewer than two forwarded messages.
+- Three qualifying groups remain in the final result.
+
+The full-table scan and grouping operation are the main contributors to execution time.
+
 ## 5. Initial observations
 
 1. R19 is the slowest query, with an average execution time of 16,016.644 ms (approximately 16 seconds).
@@ -191,6 +246,4 @@ The directory contains 30 query plan files, each with three execution plans, for
 
 ## 7. Team analysis status
 
-Detailed explanations for R09–R25 and W01–W05 are to be incorporated from the respective assigned team members. Their timing measurements and scan types are included in this report, but their detailed plan analyses should be added after review of their raw plans.
-
-
+Detailed query-plan analysis for R01–R12 is maintained in the relevant contributor analysis documents. Analysis for R13–R25 and W01–W05 remains assigned to the respective contributors.
