@@ -232,7 +232,19 @@ The full-table scan and grouping operation are the main contributors to executio
 
 These observations describe the baseline only. No additional indexes or query optimizations have been applied as part of this phase.
 
-## 6. Raw benchmark outputs
+## 6. Additional bottleneck observations (R13–R25 and W01–W05)
+
+- **R19:** Correlated subqueries repeatedly scanned the messages table for each group.
+- **R13:** Sequential scans of messages were used to identify replies and unanswered questions.
+- **R17:** Receipt and message scans were required for June read-time analytics.
+- **R18:** User, membership and chat scans were used to identify inactive users in groups.
+- **R20 and R21:** Full-table aggregation was required.
+- **R22:** A large OFFSET required PostgreSQL to walk past 100,000 rows.
+- **R23:** A sequential scan of devices was used to identify inactive WEB and DESKTOP devices.
+- **W02:** The operation required locating unread receipts for one user in one chat.
+- **W04:** The bulk insert involved inserting 5,000 rows and maintaining the receipt primary-key index.
+
+## 7. Raw benchmark outputs
 
 The raw execution plans for all three runs of every query are stored in:
 
@@ -244,6 +256,44 @@ The benchmark summary is stored in:
 
 The directory contains 30 query plan files, each with three execution plans, for a total of 90 recorded executions.
 
-## 7. Team analysis status
+## 8. Team analysis status
 
 Detailed query-plan analysis for R01–R12 is maintained in the relevant contributor analysis documents. Analysis for R13–R25 and W01–W05 remains assigned to the respective contributors.
+=======
+# CP3 Baseline Query Timings
+
+Baseline measurements use EXPLAIN (ANALYZE, BUFFERS), with three runs per query.
+The average execution times below are in milliseconds.
+
+| Query | Type | Average (ms) | Baseline observation |
+|---|---|---:|---|
+| R13 | READ | 25.126 | Sequential scans of messages for questions and replies |
+| R14 | READ | 6.738 | Sequential scans of messages and chats |
+| R15 | READ | 0.092 | Primary-key lookup on blocked_users |
+| R16 | READ | 0.389 | Primary-key lookups on receipts and users |
+| R17 | READ | 22.375 | Parallel sequential scans of receipts and messages |
+| R18 | READ | 15.825 | Sequential scans of users, chat_members and chats |
+| R19 | READ | 16016.644 | Correlated subqueries repeatedly scan messages for each group |
+| R20 | READ | 48.435 | Full sequential scan and aggregation of messages |
+| R21 | READ | 12.766 | Full sequential scan and aggregation of messages |
+| R22 | READ | 10.256 | Backward primary-key scan with OFFSET 100000 |
+| R23 | READ | 3.854 | Sequential scan of devices |
+| R24 | READ | 8.102 | Sequential scan and grouping of media |
+| R25 | READ | 0.054 | Primary-key lookup for recursive reply traversal |
+| W01 | WRITE | 0.603 | Single-row insert |
+| W02 | WRITE | 11.651 | Message lookup followed by receipt updates |
+| W03 | WRITE | 0.449 | Primary-key update |
+| W04 | WRITE | 39.268 | Bulk insert of 5,000 receipts |
+| W05 | WRITE | 0.285 | Membership update |
+
+## Main bottlenecks
+
+- R19 was the dominant bottleneck. Its correlated subqueries repeatedly scanned the messages table for each group.
+- R13 scanned messages to identify replies and unanswered questions.
+- R17 scanned receipts and messages for June read-time analytics.
+- R18 scanned membership and user data to identify inactive users in groups.
+- R20 and R21 required full-table aggregation.
+- R22 used a large OFFSET, requiring the database to walk past 100,000 rows.
+- R23 scanned devices to find inactive WEB and DESKTOP devices.
+- W02 required locating unread receipts for one user in one chat.
+- W04 inserted 5,000 rows and maintained the receipt primary-key index.
